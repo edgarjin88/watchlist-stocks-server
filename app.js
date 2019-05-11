@@ -7,6 +7,7 @@ var session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var flash = require('connect-flash')
 
 var app = express(); 
 //express assigend 
@@ -29,6 +30,7 @@ app.use(session({
     secure: false
   }
 }));
+app.use(flash())
 
 
 
@@ -40,18 +42,18 @@ app.use(cookieParser('password'));
 
 
 
+app.use( function(req, res, next){
+  console.log('Custom middleware fired2');
+  console.log('current session infomation:', req.session);
+  next(); 
+} ) 
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
 //somehow when I put middleware after router, following functions are not fired. 
-// app.use( function(req, res, next){
-//   console.log('Custom middleware fired2');
-//   console.log('current session infomation:', req.session);
-//   next(); 
-// } ) 
-
+//probably no middleware next(). 
 
 //not fired here∆
 
