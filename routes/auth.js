@@ -7,6 +7,8 @@ const { User } = require('../models');
 const router = express.Router();
 // this router deal with login, join
 //after login and join, redirect to front end app. 
+//or from front end, just send form data to here. 
+//when logged on, do console('logged in')
 
 router.post('/join', isNotLoggedIn, async (req, res, next) => { //async here!
   //middlewares going through as call backs. Number of middleware does not matter. 
@@ -32,23 +34,29 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => { //async here!
 
 router.post('/login', isNotLoggedIn, (req, res, next) => {
   passport.authenticate('local', (authError, user, info) => {
-    //passport would add '.authenticate 
+    //passport would add '.authenticate. go and check passport
     if (authError) {
       console.error(authError);
       return next(authError);
     }
     if (!user) {
       req.flash('loginError', info.message);
+      
       return res.redirect('/');
     }
-    return req.login(user, (loginError) => {
-      if (loginError) {
+    return req.login(user, (loginError) => { //여기가 핵심. req.login()을 써서 안에다가 user 정보 심음
+      // console.log('login error', user);
+      if (loginError) {  //왜 req.login인지 알아볼것. 왜 res.login은 안되는가?
         console.error(loginError);
         return next(loginError);
       }
-      return res.redirect('/');
+      // console.log('login성공!!!!!!!!!!!!', user);
+
+      return res.redirect('/'); 
     });
   })(req, res, next); 
+  // console.log('login successfull', user);
+
 });
 
 router.get('/logout', isLoggedIn, (req, res) => {

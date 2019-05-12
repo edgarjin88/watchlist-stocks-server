@@ -23,26 +23,28 @@ router.get('/join', isNotLoggedIn, (req, res) => {
 //main page
 //log in 이후 여기로 온다. 내용 수정하자. pug로 렌더링하도록
 router.get('/', (req, res, next) => {
-  Post.findAll({
-    include: {
-      model: User,
-      attributes: ['id', 'name'],
-    },
-    order: [['createdAt', 'DESC']],
-  })
-    .then((posts) => {
-      res.render('main', {
-        title: 'NodeBird',
-        twits: posts,
-        user: req.user,
-        loginError: req.flash('loginError'),
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-      next(error);
-    });
-
+  //
+  // Post.findAll({
+  //   include: {
+  //     model: User,
+  //     attributes: ['id', 'name'],
+  //   },
+  //   order: [['createdAt', 'DESC']],
+  // })
+  //   .then((posts) => { 
+  //     res.render('main', {
+  //       title: 'NodeBird',
+  //       twits: posts,
+  //       user: req.user,
+  //       loginError: req.flash('loginError'),
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //     next(error);
+  //   });
+console.log('logged in');
+// console.log(req, res);
 
 }
 

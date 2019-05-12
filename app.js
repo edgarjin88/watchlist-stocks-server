@@ -21,7 +21,8 @@ require('dotenv').config() //config()가 하는 일은?
 
 
 var sequelize = require('./models').sequelize; //index.js can be omitted. 
-var passportConfig = require('./passport');//.sequlize part is the instance of new Sequlize
+var passportConfig = require('./passport'); // passport/index.js
+//.sequlize part is the instance of new Sequlize
 var app = express(); //express assigend 
 sequelize.sync();
 passportConfig(passport) //Passing a moudle as a variable? 
@@ -41,12 +42,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'uploads'))); //to be deleted later
 app.use(express.json()) //where do I use this? when? why executge here?? 
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser('password'));
 
 app.use(session({
   resave: false, 
   saveUninitialized: false, 
-  secret: process.env.COOKIE_SECRET,
+  secret: 'password',
   cookie: {
     httpOnly: true,
     secure: false

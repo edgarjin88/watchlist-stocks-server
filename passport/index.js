@@ -7,22 +7,24 @@ module.exports = (passport) => {
   });
 
   passport.deserializeUser((id, done) => {
-    User.find({
-      where: { id },
-      include: [{
-        model: User,
-        attributes: ['id', 'nick'],
-        as: 'Followers',
-      }, {
-        model: User,
-        attributes: ['id', 'nick'],
-        as: 'Followings',
-      }],
-    })
-      .then(user => done(null, user))
-      .catch(err => done(err));
+    User.find({ where: { id }}).then(user => done(null, user))
+    .catch(err => done(err));                 // id = {id: id}
+
+
+    //   include: [{
+    //     model: User,
+    //     attributes: ['id', 'name'],
+    //     as: 'Followers',
+    //   }, {
+    //     model: User,
+    //     attributes: ['id', 'name'],
+    //     as: 'Followings',
+    //   }],
+    // })
+      
   });
 
+  
   local(passport);
   // kakao(passport);
 };
