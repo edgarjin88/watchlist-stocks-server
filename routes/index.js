@@ -22,7 +22,7 @@ router.get('/join', isNotLoggedIn, (req, res) => {
 
 //main page
 //log in 이후 여기로 온다. 내용 수정하자. pug로 렌더링하도록
-router.get('/', (req, res, next) => {
+router.get('/', isLoggedIn, (req, res, next) => {
   //
   // Post.findAll({
   //   include: {
@@ -43,7 +43,7 @@ router.get('/', (req, res, next) => {
   //     console.error(error);
   //     next(error);
   //   });
-console.log('logged in');
+console.log('you are really logged in');
 // console.log(req, res);
 
 }
