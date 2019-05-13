@@ -50,9 +50,17 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
+
       console.log('login성공!!!!!!!!!!!!', user);
 
-      return res.redirect('/'); 
+
+      // for (; i <= max; i++) {
+      //   res.write('<h1>This is the response #: ' + i + '</h1>');
+      // }
+      
+      //  res.json({"a" : "b"}) //
+       res.json({"c" : "JSON data transfer test"}) //
+      // return res.redirect('/');  //why return? 
     });
   })(req, res, next); 
   // console.log('login successfull', user);
@@ -63,6 +71,14 @@ router.get('/logout', isLoggedIn, (req, res) => {
   req.logout();
   req.session.destroy();
   res.redirect('/');
+
+
+  // res.send() already makes a call 
+  // to res.end(), meaning you can't write to res anymore after a call to 
+  // res.send (meaning also your res.end() call was useless).
+  //json data는 이걸로 보내지 마라. 
+
+
 });
 
 // router.get('/kakao', passport.authenticate('kakao'));
