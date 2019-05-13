@@ -46,11 +46,11 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
     }
     return req.login(user, (loginError) => { //여기가 핵심. req.login()을 써서 안에다가 user 정보 심음
       // console.log('login error', user);
-      if (loginError) {  //왜 req.login인지 알아볼것. 왜 res.login은 안되는가?
+      if (loginError) {  //왜 req.login인지 알아볼것. 왜 res.login은 안되는가? 
         console.error(loginError);
         return next(loginError);
       }
-      // console.log('login성공!!!!!!!!!!!!', user);
+      console.log('login성공!!!!!!!!!!!!', user);
 
       return res.redirect('/'); 
     });
