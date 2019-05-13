@@ -1,10 +1,16 @@
 module.exports = (sequelize, DataTypes) =>{
-  return sequelize.define('stock', {
+  return sequelize.define('favoritelist', {
 
-    stocksymbol: {
-      type: DataTypes.STRING(20),
+    listname: {
+      type: DataTypes.STRING(50),
       allowNull: false, 
       unique: true,
+
+    },
+    listcontents: {
+      type: DataTypes.TEXT,
+      allowNull: false, 
+      // unique: true,
 
     },
     created_at: {

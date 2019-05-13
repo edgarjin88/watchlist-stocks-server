@@ -11,16 +11,7 @@ module.exports = (passport) => {
     .catch(err => done(err));                 // id = {id: id}
 
 
-    //   include: [{
-    //     model: User,
-    //     attributes: ['id', 'name'],
-    //     as: 'Followers',
-    //   }, {
-    //     model: User,
-    //     attributes: ['id', 'name'],
-    //     as: 'Followings',
-    //   }],
-    // })
+
       
   });
 

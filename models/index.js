@@ -23,7 +23,13 @@ db.Sequelize = Sequelize;
 
 db.User = require('./user')(sequelize, Sequelize);
 db.Stock = require('./stock')(sequelize, Sequelize); 
+db.Favoritelist = require('./favoritelist')(sequelize, Sequelize)
 
+db.User.hasMany(db.Favoritelist, {foreignKey: 'owner', sourceKey: 'id'});
+db.Favoritelist.belongsTo(db.User, {foreignKey: 'owner', targetKey: 'id'});
+
+
+db.Favoritelist.belongsTo(db.User)
 db.User.belongsToMany(db.Stock, {through: 'UserStock'});
 db.Stock.belongsToMany(db.User, {through: 'UserStock'})
 
@@ -55,7 +61,7 @@ module.exports = db;
 //   })
 //   .forEach(file => {
 //     const model = sequelize['import'](path.join(__dirname, file));
-//     db[model.name] = model;
+//     db[model.name] = model
 //   });
 
 // Object.keys(db).forEach(modelName => {
