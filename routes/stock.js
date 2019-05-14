@@ -2,7 +2,7 @@
 
 const express = require('express');
 const uuidv4 = require('uuid/v4');
-const { User, Stock, UserStock  } = require('../models');
+const { User, Stock, UserStock, Favoritelist  } = require('../models');
 
 const router = express.Router();
 
@@ -35,6 +35,19 @@ router.post('/addstock', async (req, res, next) => {
 
     await stock.setUsers(req.user.id) //set the id of current user
 
+  } catch(error){ 
+      next(error)
+  
+}})
+
+
+router.get('/mylist', async (req, res, next) => {
+  try{
+
+    let stock = await Favoritelist.find({where: {owner: req.user.id}})
+
+    // await stock.setUsers(req.user.id) //set the id of current user
+    res.json(stock)
   } catch(error){ 
       next(error)
   
