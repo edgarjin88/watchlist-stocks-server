@@ -22,11 +22,11 @@ exports.verifyToken =(req, res, next) =>{
     return next() // return required? 
 
   }catch(error){
-    if(error.name ==='TokenExpiredError'){ //when expired
+    if(error.name ==='TokenExpiredError'){ 
 
       return res.status(419).json({
         code:419, 
-        message: 'Token expired'
+        message: 'Token expired'//when expired. how to set
       }); 
 
     }
@@ -37,3 +37,4 @@ exports.verifyToken =(req, res, next) =>{
 
   }
 }
+//토큰의 내용은 v1.js 에서 설정한다.

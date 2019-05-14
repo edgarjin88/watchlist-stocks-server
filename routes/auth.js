@@ -59,8 +59,8 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       // }
       
       //  res.json({"a" : "b"}) //
-       res.json({"c" : "JSON data transfer test"}) //
-      // return res.redirect('/');  //why return? 
+      //  res.json({"c" : "JSON data transfer test"}) //
+      return res.redirect('/');  //why return? 
     });
   })(req, res, next); 
   // console.log('login successfull', user);

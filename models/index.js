@@ -24,12 +24,16 @@ db.Sequelize = Sequelize;
 db.User = require('./user')(sequelize, Sequelize);
 db.Stock = require('./stock')(sequelize, Sequelize); 
 db.Favoritelist = require('./favoritelist')(sequelize, Sequelize)
+db.Domain = require('./domain')(sequelize, Sequelize)
+
 
 db.User.hasMany(db.Favoritelist, {foreignKey: 'owner', sourceKey: 'id'});
 db.Favoritelist.belongsTo(db.User, {foreignKey: 'owner', targetKey: 'id'});
 
 
-db.Favoritelist.belongsTo(db.User)
+db.User.hasMany(db.Domain)
+db.Domain.belongsTo(db.User)
+
 db.User.belongsToMany(db.Stock, {through: 'UserStock'});
 db.Stock.belongsToMany(db.User, {through: 'UserStock'})
 

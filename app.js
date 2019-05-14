@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user'); 
 // const stockRouter = require('./routes/stock');
 const authRouter = require('./routes/auth');
+const v1 = require('./routes/tokenv1');
 
 
 
@@ -42,12 +43,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname, 'uploads'))); //to be deleted later
 app.use(express.json()) //where do I use this? when? why executge here?? 
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser('password'));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use(session({
   resave: false, 
   saveUninitialized: false, 
-  secret: 'password',
+  secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
     secure: false
@@ -68,6 +69,8 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
 // app.use('/stock', stockRouter);
+
+app.use('/v1', v1); 
 
 
 // app.use('/', indexRouter);
