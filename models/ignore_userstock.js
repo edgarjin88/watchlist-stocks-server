@@ -1,16 +1,17 @@
 module.exports = (sequelize, DataTypes) =>{
-  return sequelize.define('stock', {
+  return sequelize.define('UserStock', {
 
-    stocksymbol: {
-      type: DataTypes.STRING(20),
+    userId: {
+      type: DataTypes.INTEGER(20),
       allowNull: false, 
       unique: false,
 
     },
-    created_at: {
-      type: DataTypes.DATE, 
+    stockId: {
+      type: DataTypes.INTEGER(20),
       allowNull: false, 
-      defaultValue: sequelize.literal('now()'),
+      unique: false,
+
     }
   }, {
     timestamps: false

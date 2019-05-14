@@ -24,6 +24,7 @@ db.Sequelize = Sequelize;
 db.User = require('./user')(sequelize, Sequelize);
 db.Stock = require('./stock')(sequelize, Sequelize); 
 db.Favoritelist = require('./favoritelist')(sequelize, Sequelize)
+// db.UserStock = require('./userstock')(sequelize, Sequelize)
 db.Domain = require('./domain')(sequelize, Sequelize)
 
 
