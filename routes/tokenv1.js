@@ -9,6 +9,8 @@ const router = express.Router();  // router 에다가 cors 적용뙴 .
 // router.use(cors()); 
 
 // router.use(deprecated) // what is this ?
+// router.use(cors()) // starts for each request. Access-control-Allow-Origin hear would be inserted into the response  header
+
 
 router.post('/token', async (req, res) => { //이말은 여기 와야 발행 된다는 말인데... 
   //이말은 /v1/token이 된다는 말인가?
@@ -17,7 +19,7 @@ router.post('/token', async (req, res) => { //이말은 여기 와야 발행 된
     const domain = await Domain.find({
       where: { clientSecret },
       include: {
-        model: User,
+        model: User, 
         attribute: ['name', 'id'],
       },
     });
@@ -27,7 +29,7 @@ router.post('/token', async (req, res) => { //이말은 여기 와야 발행 된
         message: 'Invalid Domain. Please register',
       });
     }
-    const token = jwt.sign({ //making token here : ) 
+    const token = jwt.sign({ //making token here
       id: domain.user.id, // don't put the domain name here. just put current user id from session, and retrieve later
       name: domain.user.name,
     }, process.env.JWT_SECRET, {  // this third option not necessary. 

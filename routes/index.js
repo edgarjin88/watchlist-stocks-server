@@ -1,10 +1,12 @@
 const express = require('express');
 const uuidv4 = require('uuid/v4');
+// const cors =require('cors')
 const { isLoggedIn, isNotLoggedIn } = require('./loginCheck');
 
 const { User, Domain } = require('../models');
 
 const router = express.Router();
+// router.use(cors())
 
 router.get('/profile', isLoggedIn, (req, res) => {
   res.render('profile', { title: 'Your info', user: req.user }); // user는 어디서 오는가?
