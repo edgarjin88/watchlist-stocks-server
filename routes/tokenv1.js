@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
-const cors = require('cors'); 
+// const cors = require('cors'); 
 
 const {verifyToken} = require('./loginCheck');
 const {Stock, User, Favoritelist, Domain } = require('../models')
@@ -51,8 +51,8 @@ router.post('/token', async (req, res) => { //이말은 여기 와야 발행 된
 });
 
 
-router.get('/test', verifyToken, (req, res) => {
-  res.json(req.decoded);
+router.post('/test', verifyToken, (req, res) => {
+  res.json({'decoded': req.decoded});
 });
 
 router.get('/favoritelist/my', verifyToken, (req, res) => {
