@@ -12,16 +12,17 @@ const router = express.Router();  // router 에다가 cors 적용뙴 .
 // router.use(cors()) // starts for each request. Access-control-Allow-Origin hear would be inserted into the response  header
 
 
-router.post('/token', async (req, res) => { //이말은 여기 와야 발행 된다는 말인데... 
+router.post('/token', async (req, res) => { //이말은 여기 와야 발행 된다는 말인데... //나중에 post로 다시 바꿔라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //이말은 /v1/token이 된다는 말인가?
   const { clientSecret } = req.body;
   try {
     const domain = await Domain.find({
-      where: { clientSecret },
-      include: {
-        model: User, 
-        attribute: ['name', 'id'],
-      },
+      where: { clientSecret }
+      // ,
+      // include: {
+      //   model: User, 
+      //   attribute: ['name', 'id'],
+      // },
     });
     if (!domain) {
       return res.status(401).json({
@@ -29,11 +30,13 @@ router.post('/token', async (req, res) => { //이말은 여기 와야 발행 된
         message: 'Invalid Domain. Please register',
       });
     }
+    console.log('!!!!!!!!!!!!!this is req.session.passport.user:', res.session.passport.user)
+
     const token = jwt.sign({ //making token here
-      id: domain.user.id, // don't put the domain name here. just put current user id from session, and retrieve later
-      name: domain.user.name,
+      id: req.session.passport.user, // don't put the domain name here. just put current user id from session, and retrieve later
+      // name: domain.user.name,
     }, process.env.JWT_SECRET, {  // this third option not necessary. 
-      expiresIn: '1m', // 1minutes
+      expiresIn: '10m', // 1minutes
       issuer: 'StockTracker',
     });
     return res.json({
@@ -51,7 +54,7 @@ router.post('/token', async (req, res) => { //이말은 여기 와야 발행 된
 });
 
 
-router.post('/test', verifyToken, (req, res) => {
+router.post('/test', verifyToken, (req, res) => { //나중에 post로 다시 바꿔라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   res.json({'decoded': req.decoded});
 });
 

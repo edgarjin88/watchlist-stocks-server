@@ -1,9 +1,17 @@
 const jwt = require('jsonwebtoken')
 
 exports.isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    next();
+  // console.log('is loggedin fired, and req:', req)
+  /// original code//
+//   if (req.isAuthenticated()) {
+//     console.log('!!!! in this case, authenticated(): reeq', req);
+//     next();
+// ///
+  if(req.session.passport.user !== undefined){
+    console.log('custom passport session fired, and req.session', req.session);
+    next()
   } else {
+    console.log('failed this is request req.session:', req.session);
     res.status(403).send('You need to log in');
   }
 };

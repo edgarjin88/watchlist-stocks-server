@@ -48,11 +48,17 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
         console.error(loginError);
         return next(loginError);
       }
+    //make the token here then.
+      console.log('!!!!!!!!!!!!!!!!!!login success!');
+      // console.log('!!!!!!!!!!req.user.id!', req.user.id);
+      // console.log('!!!!!!!!!!req.session.id!', req.session);
+      // console.log('!!!!!!!!!!req.session.passport!', req.session.passport);
+      // console.log('!!!!!!!!!!req.session.passport.user!', req.session.passport.user);
 
-      console.log('login success!', user);
-
-
-      return res.redirect('/');  //why return? 
+      console.log('You are logged on successfully',req.user.id, req.session );
+      console.log('this is cookei', req.cookie)
+      console.log('this is session Cookie', req.session.cookie)
+      return res.json(req.session);  //why return? 
     });
   })(req, res, next); 
 
