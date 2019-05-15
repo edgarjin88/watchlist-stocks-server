@@ -21,5 +21,7 @@ router.get('/info', isLoggedIn, async (req, res, next) => { //follow를 클릭�
   }
 });
 
+
+
 module.exports = router;
    
