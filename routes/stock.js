@@ -148,26 +148,24 @@ router.post('/deletelist', async (req, res, next) => {
       next(error)
   
 } } )
- 
+  
 
 
 router.get('/mylist', async (req, res, next) => {
-  try{
-    
-    let stock = await Favoritelist.find({where: {owner: req.user.id}})
-    if(!stock){
-      console.log('you don not have any stocklist');
-      res.json({"stocklist": "googl,aapl,msft,fb,dis,amzn,baba,jnj,brk.a,jpm"})
-    }else{
-      console.log(' your stock list is as below');
-      res.json({"stocklist":stock[0].listcontents})
-    }
-
-    // await stock.setUsers(req.user.id) //set the id of current user
-    
-  } catch(error){ 
-      next(error)
   
-}})
+  try{
+      let stock = await Favoritelist.find({where: {owner: req.user.id}})
+
+      if(!stock){
+        console.log('you don not have any stocklist');
+        res.json({"stocklist": "googl,aapl,msft,fb,dis,amzn,baba,jnj,brk.a,jpm"})
+      }else{
+        console.log(' your stock list is as below');
+        res.json({"stocklist":stock[0].listcontents})
+      }
+    
+  } catch (error) { 
+      next(error) }
+})
 
 module.exports = router;
