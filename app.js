@@ -32,7 +32,7 @@ passportConfig(passport) //Passing a moudle as a variable?
 
 app.use(cors({
   origin: true,
-  credentials: true,
+  credentials: true
 }))
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

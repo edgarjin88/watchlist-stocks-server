@@ -48,23 +48,48 @@ router.post('/addstock', async (req, res, next) => {
 // @Kamilius assuming it's a N:M relation where RecipesDays is a join table you should be able to do something like day.removeRecipes(recipe);
 // https://github.com/sequelize/sequelize/issues/2695
 
-// router.post('/deletestock', async (req, res, next) => {
-//   try{
-//     // models.exercise_muscle_tie.destroy({ where: { exerciseId: 1856, muscleId: 57344 } })
-//     let stockid = await Stock.find({where})
-//     let stock1 = await UserStock.find({
-//       where:{
-//         userId: req.user.id,
-//         stockId: number }
-//       })
 
-//     await stock.setUsers(req.user.id) //set the id of current user
+router.post('/deletestock', async (req, res, next) => {
+  try{
+    console.log('delete stock fired');
+    console.log('thisis UserStock ::', UserStock);
+    // console.log('thisis db ::', db.UserStock);
+    console.log('End of db.UserStock::');
+    // console.log('thisis db ::', db.UserStock)
+    // UserStock
+    //to delete a stock that owned by current user from joint table, not from stock table
+    // models.exercise_muscle_tie.destroy({ where: { exerciseId: 1856, muscleId: 57344 } })
+    // let users = await User.find({where:{id: req.user.id}})
 
-//     res.json(stock)
-//   } catch(error){ 
-//       next(error)
-  
-// }})
+    let user = await User.find({where:{id: req.user.id}}) //app stocks
+    // console.log('!!!!this is current user', user);
+    let userowned = await user.getStocks({where:{stocksymbol:'tst1'}})//userowned?
+    // console.log('thisis user owned stocks:', userowned); //user list that owned apple
+    // let ownedstocks = await 
+    // userowned.destroy()
+    // await User.removeStock({where:{}});
+    // console.log('this is destroeyd', destoryed);
+
+    // UserStock.destroy(userowned)
+
+    // await UserStock.destory(userowned)
+
+//     3: On the CourseUser model, without having a CourseUser instance available:
+
+// db.CourseUser.destroy({
+//     where: {...}
+// });
+// 4: Having a CourseUser instance available:
+
+// courseUser.destroy();
+
+
+
+    // res.json(destoryed)
+  }catch(error){ 
+      next(error)
+}})
+
 
 router.post('/addlist', async (req, res, next) => {
   try{
@@ -77,6 +102,23 @@ router.post('/addlist', async (req, res, next) => {
 
     // await stock.setUsers(req.user.id) //set the id of current user
     console.log('stocklist done', stocklist);
+  } catch(error){ 
+      next(error)
+  
+} } )
+
+router.post('/deletelist', async (req, res, next) => {
+  try{
+    console.log('deletelist fired');
+    let stocklist = await Favoritelist.find({where:{
+      listname: req.body.listname,
+      listcontents: req.body.listcontents,
+      owner:req.user.id  //could be wrong. To be checked. 
+    }})
+    await stocklist.destroy()
+
+    // await stock.setUsers(req.user.id) //set the id of current user
+    console.log('deletelist completed');
   } catch(error){ 
       next(error)
   
