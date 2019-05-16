@@ -29,19 +29,19 @@ try{
 
 
 
-router.post('/addstock', async (req, res, next) => {
-  try{
+// router.post('/addstock', async (req, res, next) => {
+//   try{
 
-    let stock = await Stock.create({
-      stocksymbol: req.body.stocksymbol})
+//     let stock = await Stock.create({
+//       stocksymbol: req.body.stocksymbol})
 
-    await stock.setUsers(req.user.id) //set the id of current user
+//     await stock.setUsers(req.user.id) //set the id of current user
 
-    res.json(stock)
-  } catch(error){ 
-      next(error)
+//     res.json(stock)
+//   } catch(error){ 
+//       next(error)
   
-}})
+// }})
 
 //getStock 이걸로 지워 보자. stock에서 시작한 후,getStock으로 가서, 삭제
 // currently working on remove
@@ -93,12 +93,32 @@ router.post('/deletestock', async (req, res, next) => {
 
 router.post('/addlist', async (req, res, next) => {
   try{
+    let prevList = await Favoritelist.find({where:{
+      owner:req.user.id  
+    }})
 
-    let stocklist = await Favoritelist.create({
-      listname: req.body.listname,
-      listcontents: req.body.listcontents,
-      owner:req.user.id  //could be wrong. To be checked. 
-    })
+    if(!prevList){
+      let stocklist = await Favoritelist.create({
+        // listname: req.body.listname,
+        listcontents: req.body.listcontents,
+        owner:req.user.id  //could be wrong. To be checked. 
+      })
+      console.log(console.log('stocklist created',stocklist));
+    } else{
+
+      let stocklist = await Favoritelist.find({where:{
+        owner: req.user.id }})
+      await stocklist.destroy()
+
+      let newstocklist = await Favoritelist.create({
+        // listname: req.body.listname,
+        listcontents: req.body.listcontents,
+        owner:req.user.id  //could be wrong. To be checked. 
+      })
+      console.log('stocklist created',newstocklist);
+
+    }
+  
 
     // await stock.setUsers(req.user.id) //set the id of current user
     console.log('stocklist done', stocklist);
@@ -111,9 +131,7 @@ router.post('/deletelist', async (req, res, next) => {
   try{
     console.log('deletelist fired');
     let stocklist = await Favoritelist.find({where:{
-      // listname: req.body.listname,
-      // listcontents: req.body.listcontents,
-      owner:req.user.id  //could be wrong. To be checked. 
+      owner:req.user.id  
     }})
 
     if(stocklist){
@@ -136,10 +154,12 @@ router.post('/deletelist', async (req, res, next) => {
 router.get('/mylist', async (req, res, next) => {
   try{
     
-    let stock = await Favoritelist.findAll({where: {owner: req.user.id}})
+    let stock = await Favoritelist.find({where: {owner: req.user.id}})
     if(!stock){
+      console.log('you don not have any stocklist');
       res.json({"stocklist": "googl,aapl,msft,fb,dis,amzn,baba,jnj,brk.a,jpm"})
     }else{
+      console.log(' your stock list is as below');
       res.json({"stocklist":stock[0].listcontents})
     }
 
