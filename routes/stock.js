@@ -111,11 +111,18 @@ router.post('/deletelist', async (req, res, next) => {
   try{
     console.log('deletelist fired');
     let stocklist = await Favoritelist.find({where:{
-      listname: req.body.listname,
-      listcontents: req.body.listcontents,
+      // listname: req.body.listname,
+      // listcontents: req.body.listcontents,
       owner:req.user.id  //could be wrong. To be checked. 
     }})
-    await stocklist.destroy()
+
+    if(stocklist){
+      await stocklist.destroy()
+      res.json({"message":"Deleted successfully"})
+    }else{
+      res.json({"message": "You don't have any stocklist to delete"})
+    }
+    
 
     // await stock.setUsers(req.user.id) //set the id of current user
     console.log('deletelist completed');
@@ -128,11 +135,16 @@ router.post('/deletelist', async (req, res, next) => {
 
 router.get('/mylist', async (req, res, next) => {
   try{
-
+    
     let stock = await Favoritelist.findAll({where: {owner: req.user.id}})
+    if(!stock){
+      res.json({"stocklist": "googl,aapl,msft,fb,dis,amzn,baba,jnj,brk.a,jpm"})
+    }else{
+      res.json({"stocklist":stock[0].listcontents})
+    }
 
     // await stock.setUsers(req.user.id) //set the id of current user
-    res.json(stock)
+    
   } catch(error){ 
       next(error)
   

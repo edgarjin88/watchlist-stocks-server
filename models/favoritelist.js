@@ -3,13 +3,13 @@ module.exports = (sequelize, DataTypes) =>{
 
     listname: {
       type: DataTypes.STRING(50),
-      allowNull: false, 
+      allowNull: true, 
       unique: false,
 
     },
     listcontents: {
       type: DataTypes.TEXT,
-      allowNull: false, 
+      allowNull: true, 
       unique: false,
 
     },
