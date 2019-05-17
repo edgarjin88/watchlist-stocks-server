@@ -13,8 +13,8 @@ router.get('/info', isLoggedIn, async (req, res, next) => { //follow를 클릭�
     const user = await User.find({ where: { id: req.user.id } }); //user 찾아서
     // console.log('this is user :', user);
     //나중에 수정할 것. 
-    var u = user.toJSON()
-    res.json(u);
+    // var u = user.toJSON()
+    res.json({name: user.name, id: user.userId});
   } catch (error) {
     console.error(error);
     next(error);

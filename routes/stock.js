@@ -65,27 +65,7 @@ router.post('/deletestock', async (req, res, next) => {
     // console.log('!!!!this is current user', user);
     let userowned = await user.getStocks({where:{stocksymbol:'tst1'}})//userowned?
     // console.log('thisis user owned stocks:', userowned); //user list that owned apple
-    // let ownedstocks = await 
-    // userowned.destroy()
-    // await User.removeStock({where:{}});
-    // console.log('this is destroeyd', destoryed);
-
-    // UserStock.destroy(userowned)
-
-    // await UserStock.destory(userowned)
-
-//     3: On the CourseUser model, without having a CourseUser instance available:
-
-// db.CourseUser.destroy({
-//     where: {...}
-// });
-// 4: Having a CourseUser instance available:
-
-// courseUser.destroy();
-
-
-
-    // res.json(destoryed)
+  
   }catch(error){ 
       next(error)
 }})
@@ -149,7 +129,23 @@ router.post('/deletelist', async (req, res, next) => {
   
 } } )
   
+router.post('/update', async (req, res, next) => {
+  
+  try{
+      let stock = await Favoritelist.find({where: {owner: req.user.id}})
+      stock.update({listcontents: req.body.listcontents})
 
+      if(!stock){
+        console.log('you don not have any stocklist');
+        res.json({"stocklist": "googl,aapl,msft,fb,dis,amzn,baba,jnj,brk.a,jpm"})
+      }else{
+        console.log(' 11111your stock list is as below');
+        res.json(stock)
+      }
+    
+  } catch (error) { 
+      next(error) }
+})
 
 router.get('/mylist', async (req, res, next) => {
   
@@ -160,8 +156,8 @@ router.get('/mylist', async (req, res, next) => {
         console.log('you don not have any stocklist');
         res.json({"stocklist": "googl,aapl,msft,fb,dis,amzn,baba,jnj,brk.a,jpm"})
       }else{
-        console.log(' your stock list is as below');
-        res.json({"stocklist":stock[0].listcontents})
+        console.log(' 11111your stock list is as below');
+        res.json(stock)
       }
     
   } catch (error) { 
@@ -169,3 +165,25 @@ router.get('/mylist', async (req, res, next) => {
 })
 
 module.exports = router;
+
+
+
+// router.get('/mystock', async (req, res, next) => {
+
+//   try{
+//     let users = await User.find({where:{id: req.user.id}})
+//     const stocks = await users.getStocks();
+    
+//     let result = []
+//     stocks.forEach((a)=>
+  
+//     { 
+//       console.log(a)
+//       result.push(a.stocksymbol)
+//     }
+//     )
+//     res.json(result)
+//   }catch(error){
+//     next(error)
+//   }
+//   });

@@ -1,0 +1,27 @@
+//this was for first loading
+async initialStockLoading() {
+console.log('initial loading list fired');
+
+  axios.get('http://localhost:3333/', {withCredentials: true}).then((result)=>{   
+  let companylist = result.data.nostocklist.split(',')
+  let previousList = []
+  let newlist =[]
+
+  this.state.stocks.forEach((el)=>{
+    previousList.push(el.symbol)
+  })
+
+  companylist.forEach((e)=>{
+    if(previousList.indexOf(e) === -1){
+      newlist.push(e)
+      console.log('this is new list pushed', e)
+    }else{
+      console.log('cannot be added as it is already there')
+    }
+  })
+
+newlist.forEach((e)=>{
+    console.log('thisis e', e)
+    this.setState({stocks: [...this.state.stocks, e]})
+  })
+}

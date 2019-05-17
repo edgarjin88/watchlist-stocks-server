@@ -56,8 +56,8 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
       // console.log('!!!!!!!!!!req.session.passport!', req.session.passport);
       // console.log('!!!!!!!!!!req.session.passport.user!', req.session.passport.user);
 
-      console.log('You are logged on successfully',req.user.id, req.session );
-      console.log('You are logged on successfully',req.user.id, req.session );
+      // console.log('You are logged on successfully',req.user.id, req.session );
+      // console.log('You are logged on successfully',req.user.id, req.session );
       // console.log('this is cookei', req.cookie)
       // console.log('this is session Cookie', req.session.cookie)
       return res.json(req.session);  //why return? 
@@ -67,6 +67,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
 });
 
 router.get('/logout', isLoggedIn, (req, res) => {
+  console.log('logout fired');
   req.logout();
   req.session.destroy();
   res.redirect('/');
