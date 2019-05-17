@@ -14,3 +14,5 @@
 
 1. Click the link or clone the this github page. 
 2. Move to the directory that you are ging to use and "npm install"
+
+
