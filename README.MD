@@ -1,6 +1,6 @@
 
 
-#Project #2: Stock Watch List (Back-End)
+# Project #2: Stock Watch List (Back-End)
 This is our mobile friendly project using React and Node.js.
 
 Authors:
@@ -12,7 +12,7 @@ Authors:
 
 
 
-###If you don't have Mysql installed, please go through the following setps. 
+### If you don't have Mysql installed, please go through the following setps. 
 
 1. Download and instll MySQL at https://www.mysql.com/
 
@@ -21,14 +21,14 @@ Authors:
 3. Also please install Sequelize-cli globally. please refer here https://www.npmjs.com/package/sequelize-cli/v/5.4.0
 
 
-###For Initial setup for Whatch-list server, please follow the next steps
+### For Initial setup for Whatch-list server, please follow the next steps
 
 1. Click the link or clone the this github page. 
 2. Move to the directory that you are ging to use and "npm install"
 
 
 
-### General Features of Backend 
+## General Features of Backend 
 
 1. Security
 Following features are implemented at the backend 
@@ -48,7 +48,7 @@ Currently Most of the data table not in use.
 
 
 
-### Things to improve
+## Things to improve
 
 1. General refactoring. 
 -Code to be cleaned up.
@@ -63,7 +63,7 @@ Currently showing some issues on "HEROKU" environment.
 
 
 
-### Skils gained through this team project
+## Skils gained through this team project
 1. User authentication ans protection through JWT token, Passport module, bcrypt, Sequelize
 2. Asynchronouse data transfer and routing on Express framework 
 3. RESTful api and communication between front-end server and bac-end server. 
