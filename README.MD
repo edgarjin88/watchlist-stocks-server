@@ -31,11 +31,11 @@ Authors:
 ## General Features of Backend 
 
 1. Security
-Following features are implemented at the backend 
+Following features are implemented at the backend::
 
--API key protection
--JWT Token
--Passport modules 
+API key protection
+JWT Token
+Passport modules 
 
 2. Store user information and favorite stock list. 
 This backend server was designed to serve as an API server to support front-end React server.
@@ -50,13 +50,13 @@ Currently Most of the data table not in use.
 
 ## Things to improve
 
-1. General refactoring. 
--Code to be cleaned up.
--In many places, "promise" and "await" used interchangeably. Better to use one style for better readability
--There are unnecessary code lines that were used for testing such as front and pages. They all needs to be cleaned up. 
+1. General refactoring
+Code to be cleaned up.
+In many places, "promise" and "await" used interchangeably. Better to use one style for better readability
+There are unnecessary code lines that were used for testing such as front and pages. They all needs to be cleaned up. 
 
 2. Remove unused function 
--API key and JWT token is not currently used by front end, but still in the backend. 
+API key and JWT token is not currently used by front end, but still in the backend. 
 
 3. Deployment issue. 
 Currently showing some issues on "HEROKU" environment. 
